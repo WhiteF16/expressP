@@ -1,15 +1,15 @@
-//后端把jwt发送给前端，jwt是一串字符，该字符保存在前端，然后用户进行请求时，再把jwt发回给后端，后端检查jwt
+// utils/jwtUtil.js
 const jwt = require('jsonwebtoken');
 const jwtConfig = require('../config/jwtConfig');
 
-// 生成JWT token,发生在邮箱和密码匹配之后
+// 生成 JWT token
 const generateJWT = (user) => {
   const payload = {
     userId: user.id,
     email: user.email,
-  };//jwt负载
+  }; // JWT 负载
 
-  const token = jwt.sign(payload, jwtConfig.secret, {//使用这些参数创建jwt token
+  const token = jwt.sign(payload, jwtConfig.secret, {  // 使用密钥生成 JWT
     expiresIn: jwtConfig.expiresIn,
   });
 
@@ -19,7 +19,7 @@ const generateJWT = (user) => {
 // 验证 JWT
 const verifyJWT = (token) => {
   try {
-    const decoded = jwt.verify(token, jwtConfig.secret);//解码jwt负载
+    const decoded = jwt.verify(token, jwtConfig.secret); // 解码并验证 token
     return decoded;  // 返回解码后的信息
   } catch (err) {
     return null;  // 验证失败时返回 null
@@ -28,5 +28,5 @@ const verifyJWT = (token) => {
 
 module.exports = {
   generateJWT,
-  verifyJWT
+  verifyJWT,
 };
