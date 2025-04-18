@@ -1,5 +1,5 @@
-// authRoutes.js
 const express = require('express');
+const {loginLimiter,registerLimiter,getVerificationCodeLimiter}=require('../middlewares/limitMiddleware')
 const router = express.Router();
 
 
@@ -8,10 +8,12 @@ const verifyJWT = require('../middlewares/JWTMiddleware');
 const upload=require('../middlewares/multerMiddleware');
 
 
-router.post('/login',authController.login);
+router.post('/login',loginLimiter,authController.login);
 
-router.post('/register',authController.register);
+router.post('/register',registerLimiter,authController.register);
 
-router.put('/update-profile', verifyJWT, upload, authController.updateProfile);
+router.post('/getVerificationCode',getVerificationCodeLimiter,authController.generateVerificationCode);
+
+router.post('/remakePwd',verifyJWT,authController.remakePwd);
 
 module.exports = router;

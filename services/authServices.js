@@ -55,44 +55,6 @@ exports.authRegister = async (email, password) => {
 };
 
 
-// 更新用户信息
-exports.authUpdate = async (id, idName, gender, img) => {
-  try {
-    let updateQueries = [];
-  
-    if (idName) {
-      updateQueries.push(db.query(aQ.updateIdName, [idName, id]));
-    }
-
-    if (gender) {
-      updateQueries.push(db.query(aQ.updateGender, [gender, id]));
-    }
-
-    if (img) {
-      updateQueries.push(db.query(aQ.updateImg, [img.buffer, id]));
-    }
-
-    if (updateQueries.length === 0) {
-      return { success: true, message: '没有更新的内容' };
-    }
-
-    // 并行执行所有更新查询
-    const results = await Promise.all(updateQueries);
-
-    const updatedResults = results.map((result, index) => {
-      return result[0]?.affectedRows > 0 ? '更新成功' : '未做任何更改';
-    });
-
-    return {
-      success: true,
-      message: '个人信息更新成功',
-      updatedResults
-    };
-  } catch (err) {
-    throw new Error('更新个人信息失败'+err.message);
-  }
-};
-
 exports.generateVerificationCode = async (email) => {
   console.log("正在尝试生成验证码");
   try{
