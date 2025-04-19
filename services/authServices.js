@@ -4,7 +4,7 @@ const aQ = require('../db/queries/authQueries');
 const jwtUtils = require('../utils/jwtUtils');
 
 exports.authValidPwd = async (email, password) => {
-  console.log("正在尝试登录");
+  console.log("正在log");
   try {
     const results = await db.query(aQ.getPwd, [email]);
 
@@ -26,6 +26,7 @@ exports.authValidPwd = async (email, password) => {
     if (error.status) {
       throw error; 
     }
+    console.error(error);
     throw { status: 500, message: '服务器内部错误'};
   }
 };

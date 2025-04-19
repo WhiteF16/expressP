@@ -3,7 +3,7 @@ function globalErrorMiddleware(err, req, res, next) {
     const message=err.message||"服务器发生未知错误";
     res.status(statusCode || 500).json({
         success:false,
-        message
+        message:err.message
     });
 };
 module.exports={globalErrorMiddleware};

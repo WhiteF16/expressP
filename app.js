@@ -25,12 +25,12 @@ app.use(xssClean());//防止xss攻击
 
 //挂载路由
 app.use('/auth', authRoutes);
-app.use('/sleep',sleepRoutes);
+//app.use('/sleep',sleepRoutes);
 
 //配置中间件
 app.use(errorMiddleware.globalErrorMiddleware);//全局错误中间件
 
-app.listen(3000, () => {  
+app.listen(3000, '0.0.0.0',() => {  
     console.log('Server is running at http://localhost:3000');   
 });
 //app.listen(8081, '172.29.170.112', () => {

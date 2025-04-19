@@ -1,7 +1,8 @@
 const authServices = require('../services/authServices');
-const { authSchema, registerSchema, verificationSchema, resetPwdSchema } = require('../validators/authValidator');
+const { authSchema, registerSchema, verificationSchema, resetPwdSchema } = require('../validators/authValidators');
 
 exports.login = async (req, res, next) => {
+    console.log("try login");
   try {
     const { error } = authSchema.validate(req.body);
     if (error) return next({ status: 400, message: error.details[0].message });
