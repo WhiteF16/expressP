@@ -6,6 +6,7 @@ const app = express();
 
 //路由
 const authRoutes = require('./routes/authRoutes');
+const sleepRoutes=require('./routes/sleepRoutes');
 
 //中间件
 const errorMiddleware=require('./middlewares/errorMiddleware')
@@ -25,6 +26,7 @@ app.use(xssClean());//防止xss攻击
 
 //挂载路由
 app.use('/auth', authRoutes);
+app.use('/sleep',sleepRoutes);
 //app.use('/sleep',sleepRoutes);
 
 //配置中间件
